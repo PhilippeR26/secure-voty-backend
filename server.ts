@@ -1,10 +1,11 @@
+import * as dotenv from "dotenv";
 import express from 'express';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import fs from 'fs/promises';
+import fsSync from 'fs';
 import path from 'path';
 import cors from 'cors';
-import * as dotenv from "dotenv";
 dotenv.config({quiet: true});
 
 const app = express();
@@ -13,9 +14,21 @@ app.use(express.json({ limit: '10mb' }));
 
 const execAsync = promisify(exec);
 const PROJECT_DIR = '/app/vote_private'; 
+const isDocker = process.env.DOCKER === 'true' || fsSync.existsSync('/.dockerenv');
+
+if (!isDocker && process.env.NODE_ENV !== 'production') {
+  dotenv.config({ path: '.env' });
+  console.log('dotenv chargé (mode local non-Docker)');
+} else {
+  console.log('Mode Docker ou prod – pas de dotenv');
+}
+
+console.log('SECRET :', process.env.SECRET);
 
 app.post('/prove', async (req, res) => {
-  if (req.headers['x-api-key'] !== process.env.SECRET) {
+  const apiKey = req.headers['x-api-key'];
+  console.log("keys:", { received: apiKey, expected: process.env.SECRET });
+  if (apiKey !== process.env.SECRET) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 

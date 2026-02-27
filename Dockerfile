@@ -38,7 +38,7 @@ WORKDIR /app
 
 COPY --from=builder /app/vote_private /app/vote_private
 
-COPY server.ts package.json package-lock.json* .env ./
+COPY server.ts package.json package-lock.json* ./
 
 RUN npm install
 

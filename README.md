@@ -3,6 +3,8 @@
 > [!IMPORTANT]
 > This repo is the backend of the SECURE-VOTY [project](https://github.com/PhilippeR26/secure-voty), using the Starknet proving features.
 
+## Purpose
+This backend execute a Cairo program, and generates a proof that do not divulgate some inputs (who voted what?).
 
 ## Local test
 
@@ -17,7 +19,7 @@ docker build -t vote-prover:local .
 ```
 
 ```bash
-docker run -p 4000:4000 --rm vote-prover:local
+source ./run-local.sh
 ```
 > [!TIP]
 > For more details see [here](./docker-local-build.md)
