@@ -8,7 +8,6 @@ round: felt252,
 
  ================== PRIVATE INPUTS (cachés par la preuve)
 member_leaf: felt252,           // hash de ton identifiant membre
-member_index: u32,              // position dans l'arbre
 merkle_proof: Array<felt252>,   // siblings . Do not forget initial quantity of items
 secret: felt252,                // ton secret privé (généré localement, jamais envoyé)
 

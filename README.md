@@ -13,6 +13,10 @@ Docker has to be installed & running on your PC.
 ### Build & run the backend:
 Create a .env file to define a SECRET env constant.
 
+```bash
+npm install
+``` 
+
 Build:
 ```bash
 docker build -t vote-prover:local .
@@ -33,3 +37,8 @@ curl -X POST http://localhost:4000/prove -H "Content-Type: application/json" -H 
 
 > [!WARNING]
 > Take care to have a least 15 Gb of free RAM
+
+
+## Deployment
+- This backend has been deployed in **TBD**
+- 

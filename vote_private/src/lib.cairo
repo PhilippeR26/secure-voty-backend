@@ -7,7 +7,6 @@ use core::array::ArrayTrait;
 // ======================
 fn merkle_verify(
     leaf: felt252,
-    mut index: u32,
     mut proof: Array<felt252>,
     root: felt252
 ) -> bool {
@@ -63,7 +62,6 @@ fn main(
 
     // ================== PRIVATE INPUTS (cachés par la preuve)
     member_leaf: felt252,           // hash de ton identifiant membre
-    member_index: u32,              // position dans l'arbre
     merkle_proof: Array<felt252>,   // siblings (profondeur max ~20-25 ok en browser)
     secret: felt252,                // ton secret privé (généré localement, jamais envoyé)
 ) -> (felt252, u8, felt252) {      // retour = (merkle_root, vote, nullifier)
@@ -76,7 +74,7 @@ fn main(
     assert(computed_nullifier == nullifier, 'Invalid nullifier');
 
     // 3. Appartenance à la liste des membres ?
-    let is_member = merkle_verify(member_leaf, member_index, merkle_proof, merkle_root);
+    let is_member = merkle_verify(member_leaf,  merkle_proof, merkle_root);
     assert(is_member, 'Not a member');
 
     // Tout est bon → on retourne les valeurs publiques
